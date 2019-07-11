@@ -1,1 +1,1 @@
-submission for exercises 1.6 to 1.11*
+This project was submitted  for exercises 1.6 to 1.11*
