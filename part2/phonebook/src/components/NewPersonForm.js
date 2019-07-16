@@ -1,14 +1,9 @@
 
-import React from 'react'
-import Person from './Person'
+import React, { useState }  from 'react'
 
-const NewPersonForm = ({ phonebook }) => {
-
-    const phonenumbers = () => 
-    phonebook.map((person) => 
-    {
-        return <Person key={person.name} contact={person} />
-    })
+const NewPersonForm = ({ phonebook, callbackSetState, callbackShowAll }) => {
+    const [ newName, setNewName ] = useState('add new name')
+    const [ newNumber, setNewNumber ] = useState('12345')
 
     const handleNameChange = (event) => {
         setNewName(event.target.value)
@@ -17,21 +12,23 @@ const NewPersonForm = ({ phonebook }) => {
       const handleNumberChange = (event) => {
         setNewNumber(event.target.value)
       }
-    
+
       const isPersonDuplicate = (name) => {
-        let filteredarray = persons.filter((person) => person.name === name)
+        let filteredarray = phonebook.filter((person) => person.name === name)
         return filteredarray.length === 1
       }
       
       const addToPhonebook = (event) => {
         event.preventDefault()
+        
         if (isPersonDuplicate(newName))
           {
             var alerttext = `${newName} already exists in the phonebook`
             window.alert(alerttext)
           }
         else
-          setPersons(persons.concat({name: newName, number: newNumber}))
+        callbackSetState(phonebook.concat({name: newName, number: newNumber}))
+        callbackShowAll(true)
         
       }
 
@@ -53,4 +50,4 @@ const NewPersonForm = ({ phonebook }) => {
     )
   }
   
-  export default Numbers
+  export default NewPersonForm
