@@ -1,9 +1,13 @@
 
 import React from 'react'
 
-const Person = ({ contact }) => {
+const Person = ({ contact, onClickDelete }) => {
     return (
-      <li>{contact.name} {contact.number}</li>
+      
+      <li>{contact.name} {contact.number}
+      <button onClick={onClickDelete}>delete</button>
+      </li>
+      
     )
   }
   
