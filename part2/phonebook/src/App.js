@@ -43,12 +43,13 @@ const App = () => {
       personsService
         .deleteperson(id)
         .then(data => {
-          setTimedNotification(`${person.name} deleted`,true)
-          setPersons(persons.filter(person => person.id !== id))})
-        .catch(err => {
-          console.log(err)
+          setTimedNotification(`${person.name} deleted`, true)
           setPersons(persons.filter(person => person.id !== id))
-          setTimedNotification(`${person.name} already removed from server`,false)
+        })
+        .catch(err => {
+
+          setPersons(persons.filter(person => person.id !== id))
+          setTimedNotification(`${person.name} already removed from server`, false)
         })
     }
   }
@@ -61,8 +62,19 @@ const App = () => {
   const addPersonToPhonebook = (newName, newNumber) => {
 
     let existing_id = isPersonDuplicate(newName)
-    console.log("existing_id" + existing_id)
-    if (existing_id !== -1) {
+
+
+    if (existing_id === -1) {
+
+      const newObject = { name: newName, number: newNumber }
+      personsService
+        .create(newObject)
+        .then(returnedObject => {
+          setPersons(persons.concat(returnedObject))
+          setTimedNotification(`${newName} added`, true)
+        })
+    }
+    else {
       var alerttext = `${newName} already exists in the phonebook, do you want to upate`
       let doupdate = window.confirm(alerttext)
       if (doupdate) {
@@ -75,16 +87,9 @@ const App = () => {
           .catch(err => {
             setPersons(persons.filter(person => person.id !== existing_id))
             setTimedNotification(`${newName} already removed from server`,
-              false)})
+              false)
+          })
       }
-    }
-    else {
-      const newObject = { name: newName, number: newNumber }
-      personsService
-        .create(newObject)
-        .then(returnedObject => {
-          setPersons(persons.concat(returnedObject))
-          setTimedNotification(`${newName} added`, true)})
     }
     setShowAll(true)
   }

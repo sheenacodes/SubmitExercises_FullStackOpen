@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react'
-import personsService from '../services/persons'
 
 const NewPersonForm = ({ phonebook, callBackAddPerson }) => {
   const [newName, setNewName] = useState('name')
@@ -14,39 +13,9 @@ const NewPersonForm = ({ phonebook, callBackAddPerson }) => {
     setNewNumber(event.target.value)
   }
 
-
-
   const addToPhonebook = (event) => {
     event.preventDefault()
-    callBackAddPerson(newName,newNumber)
-    /*
-    let existing_id = isPersonDuplicate(newName)
-    console.log("existing_id" + existing_id)
-    if (existing_id !== -1) {
-      var alerttext = `${newName} already exists in the phonebook, do you want to upate`
-      let doupdate = window.confirm(alerttext)
-      if (doupdate) {
-        const newObject = { name: newName, number: newNumber, id: existing_id }
-        personsService
-        .update(existing_id, newObject)
-          .then(returnedObject =>
-            callbackSetState(phonebook.map(person =>
-              person.name === newName ? returnedObject : person
-            )))
-            .catch(err => 
-              {
-                callbackErr(`${newName} already deleted`)
-              })
-      }
-    }
-    else {
-      const newObject = { name: newName, number: newNumber}
-      personsService
-        .create( newObject)
-        .then(returnedObject => 
-            callbackSetState(phonebook.concat(returnedObject)))       
-    }
-    callbackShowAll(true)*/
+    callBackAddPerson(newName, newNumber)
   }
 
   return (

@@ -14,7 +14,6 @@ const Filter = ({phonebook, callbackSetState, callbackShowAll }) => {
         callbackShowAll(false)
       }
     
-   
     return (
         <div>
             filter by name: <input value={searchstring} onChange={handleInputChange}></input>
